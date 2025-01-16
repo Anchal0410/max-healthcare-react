@@ -2,7 +2,9 @@ import React from "react";
 import { Search, ChevronDown } from "lucide-react";
 import logo from "../assets/max-logo.png";
 import dashImg from "../assets/dashboard-img.png";
-
+import { Menu } from "lucide-react";
+import { X } from "lucide-react";
+import { useState } from "react";
 // MAX Healthcare Logo SVG Component
 const MaxLogo = () => (
   <div className="flex items-center space-x-2">
@@ -110,15 +112,30 @@ const SpecialtyItem = ({ icon, title }) => (
 );
 
 const MaxHealthcare = () => {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
   return (
     <div className="min-h-screen bg-white">
       {/* Header */}
-      <header className="bg-white border-b">
+      <header className="bg-white border-b relative">
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between h-20">
-            <img src={logo} alt="max-logo" className="w-60" />
+            <img src={logo} alt="max-logo" className="w-40 md:w-60" />
 
-            <nav className="flex items-center space-x-8">
+            {/* Mobile Menu Button */}
+            <button
+              className="md:hidden"
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            >
+              {isMobileMenuOpen ? (
+                <X className="w-6 h-6" />
+              ) : (
+                <Menu className="w-6 h-6" />
+              )}
+            </button>
+
+            {/* Desktop Navigation */}
+            <nav className="hidden md:flex items-center space-x-4 lg:space-x-8">
               <NavItem text="Hospitals" />
               <NavItem text="Treatments" />
               <NavItem text="Services" />
@@ -130,38 +147,61 @@ const MaxHealthcare = () => {
                 <Search className="w-5 h-5" />
               </button>
 
-              <button className="bg-[#00437B] text-white px-5 py-2.5 rounded text-sm font-semibold hover:bg-blue-900 transition-colors whitespace-nowrap">
+              <button className="bg-[#00437B] text-white px-4 py-2 rounded text-sm font-semibold hover:bg-blue-900 transition-colors whitespace-nowrap">
                 Book an Appointment
               </button>
             </nav>
           </div>
         </div>
+
+        {/* Mobile Menu */}
+        {isMobileMenuOpen && (
+          <div className="md:hidden absolute top-20 left-0 right-0 bg-white border-b z-50">
+            <div className="px-4 py-2 space-y-4">
+              <NavItem text="Hospitals" />
+              <NavItem text="Treatments" />
+              <NavItem text="Services" />
+              <NavItem text="Academics" />
+              <NavItem text="International Patients" />
+              <NavItem text="Quick Enquiry" />
+              <button className="w-full bg-[#00437B] text-white px-4 py-2 rounded text-sm font-semibold hover:bg-blue-900 transition-colors">
+                Book an Appointment
+              </button>
+            </div>
+          </div>
+        )}
       </header>
 
       {/* Specialties Section */}
-      <div className="pt-8 px-16">
+      <div className="pt-8 px-4 md:px-16">
         {/* Emergency text */}
         <div
-          className="fixed left-0 top-1/3 bg-[#E31837] text-white px-1 py-20 font-bold 
+          className="hidden md:block fixed left-0 top-1/3 bg-[#E31837] text-white px-1 py-20 font-bold 
                       [writing-mode:vertical-lr] rotate-180 tracking-wider text-sm z-10"
         >
           E M E R G E N C Y
         </div>
 
+        {/* Mobile Emergency Button */}
+        <button className="md:hidden fixed left-4 top-1/2 transform -translate-y-1/2 z-10 bg-[#E31837] text-white px-3 py-2 rounded-lg font-bold">
+          EMERGENCY
+        </button>
+
         {/* Main content with grid and image */}
         <div>
-          <h1 className="text-[#00437B] text-2xl font-bold pb-1  border-b-2 border-[#00437B] inline-block">
+          <h1 className="text-[#00437B] text-xl md:text-2xl font-bold pb-1 border-b-2 border-[#00437B] inline-block">
             Specialities & Procedures
           </h1>
-          <hr className="w-1/2" />
-          <div className="flex mt-8">
+          <hr className="w-full md:w-1/2" />
+
+          <div className="flex flex-col md:flex-row mt-8">
             {/* Specialties section */}
-            <div className="w-1/2">
-              <h2 className="text-[#40BFB4] text-xl font-medium mb-6 border-b-2 border-[#40BFB4] w-32 py-1">
+            <div className="w-full md:w-1/2">
+              <h2 className="text-[#40BFB4] text-lg md:text-xl font-medium mb-6 border-b-2 border-[#40BFB4] w-32 py-1">
                 Specialities
               </h2>
 
-              <div className="grid grid-cols-2 gap-y-6 pr-8">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-6 gap-x-4 md:gap-x-8 pr-0 md:pr-8">
                 {/* Left Column */}
                 <div className="space-y-6">
                   <SpecialtyItem
@@ -200,14 +240,14 @@ const MaxHealthcare = () => {
                 </div>
               </div>
             </div>
-            <div>
-              {/* Dashboard Image */}
+
+            {/* Dashboard Image */}
+            <div className="w-full md:w-1/2 mt-8 md:mt-0">
               <img
                 src={dashImg}
                 alt="dashBoard"
-                className="rounded-lg -mt-24 ml-16 "
+                className="rounded-lg w-full md:-mt-24 md:ml-16"
               />
-              {/* </div> */}
             </div>
           </div>
         </div>
