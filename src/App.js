@@ -6,9 +6,9 @@ import MaxHealthcare from './components/Dashboard'
 const App = () => {
   return (
     <div>
-      <Login/>
+      {/* <Login/> */}
       {/* <DevicesDashboard/> */}
-     {/* <MaxHealthcare/> */}
+     <MaxHealthcare/>
     </div>
   )
 } 

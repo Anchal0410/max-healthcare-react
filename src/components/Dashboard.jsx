@@ -4,6 +4,7 @@ import logo from "../assets/max-logo.png";
 import dashImg from "../assets/dashboard-img.png";
 import { Menu } from "lucide-react";
 import { X } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { useState } from "react";
 // MAX Healthcare Logo SVG Component
 const MaxLogo = () => (
@@ -242,11 +243,25 @@ const MaxHealthcare = () => {
             </div>
 
             {/* Dashboard Image */}
-            <div className="w-full md:w-1/2 mt-8 md:mt-0">
+
+            <div className="w-full md:w-1/2 mt-8 md:mt-0 relative">
+              {/* Find a Doctor Section */}
+
+              <div className="absolute top-0 left-0 right-0 z-10 rounded-3xl p-8 md:p-10 text-white">
+                <button className="bg-[#258eaf] text-white px-9 py-2 ml-24 my-6 rounded-md hover:bg-[#007DA9] transition-colors flex items-center space-x-2 text-lg">
+                  <span className="border-r-2 px-2 py-2 font-medium">
+                    Find a Doctor
+                  </span>
+
+                  <ArrowRight />
+                </button>
+              </div>
+
+              {/* Dashboard Image */}
               <img
                 src={dashImg}
                 alt="dashBoard"
-                className="rounded-lg w-full md:-mt-24 md:ml-16"
+                className="rounded-lg w-full md:-mt-24 md:ml-16 relative z-0"
               />
             </div>
           </div>
